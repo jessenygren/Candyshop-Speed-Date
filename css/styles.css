@@ -1,0 +1,284 @@
+body {
+    padding-top: 16vh;
+    padding-bottom: 13rem;
+    background-color: #FFCCAC;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-size: 2vh;
+}
+
+form {
+    font-size: 2vh;
+}
+
+#refreshBtn {
+    text-align: center;
+    color: #FEFEFA;
+    background-color: #a9d6cf;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px #333;
+    font-size: 2vh;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-bottom: 4%;
+    width: 100%;
+}
+
+#timer {
+    text-align: center;
+}
+
+#chatText {
+    padding-top: 53vh;
+    overflow: hidden;
+    background-color: #cbe6e2;
+    border: solid white;
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+#msgArea {
+    margin-top: 5px;
+    width: 100%;
+}
+
+#sendBtn {
+    text-align: center;
+    color: #FEFEFA;
+    background-color: #a9d6cf;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px #333;
+    font-size: 2vh;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-bottom: 4%;
+    width: 100%;
+}
+
+
+.navbar {
+    overflow: hidden;
+    background-color: #C1E1DC;
+    position: fixed;
+    /* Set the navbar to fixed position */
+    top: 0;
+    /* Position the navbar at the top of the page */
+    width: 100%;
+    /* Full width */
+    box-sizing: border-box;
+    border-bottom: solid #FEFEFA;
+}
+
+
+.navbar h1 {
+    float: left;
+
+    margin-left: 17%;
+    display: block;
+    color: #FEFEFA;
+    text-shadow: 2px 2px #333;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 6.9vh;
+    cursor: pointer;
+
+}
+
+.navbar form {
+    text-align: center;
+    margin-right: 17%;
+    margin-left: 17%;
+
+}
+
+#menuBtnContainer {
+    margin-right: 17%;
+    margin-left: 17%;
+}
+
+.menuBtn {
+
+    color: #FEFEFA;
+    background-color: #a9d6cf;
+    text-shadow: 0 1px 1px #333;
+    font-size: 2vh;
+    font-weight: bold;
+    width: 150px;
+    display: block;
+    float: right;
+
+}
+
+.content {
+    overflow: hidden;
+    background-color: #FFCCAC;
+    margin-left: 17%;
+    margin-right: 17%;
+
+}
+
+.content h1 {
+    color: #333;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 5vh;
+}
+
+.content h2 {
+    color: #333;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 4.5vh;
+}
+
+.content p {
+
+    color: #333;
+}
+
+.content .newU {
+    width: 23rem;
+}
+
+.content form {
+
+    color: #333;
+}
+
+
+
+.bottom {
+    position: fixed;
+    background-color: #C1E1DC;
+
+    bottom: 0;
+    width: 100%;
+    padding-top: 20px;
+    border-top: solid #FEFEFA;
+}
+
+#sex {
+    column-count: 2;
+}
+
+#signature {
+
+    color: #FEFEFA;
+    text-shadow: 2px 2px #333;
+    font-family: 'Brush Script MT', cursive;
+    margin-left: 45%;
+    font-size: 2.7vh;
+    vertical-align: middle;
+
+}
+
+.myButton {
+    color: #FEFEFA;
+    background-color: #a9d6cf;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px #333;
+    font-size: 2vh;
+    font-weight: bold;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+
+.accBtn {
+
+    float: right;
+    text-align: center;
+    color: #FEFEFA;
+    background-color: #a9d6cf;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px #333;
+    font-size: 2vh;
+    font-weight: bold;
+
+    margin-bottom: 4%;
+
+}
+
+
+
+/* Clear floats after the columns */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+
+
+
+/* Huonenapit */
+
+.accordion {
+
+    background-color: #C1E1DC;
+    color: #FEFEFA;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    font-size: 2.5vh;
+    font-weight: bold;
+    text-shadow: 0 1px 1px #333;
+    border: solid #FEFEFA;
+
+
+
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+
+.accordion:hover {
+    background-color: #a9d6cf;
+}
+
+@media (max-width: 950px) {
+
+    .menuBtn {
+        float: left;
+        display: block;
+    }
+
+}
+
+@media (max-width: 941px) {
+
+    body {
+        padding-top: 12rem;
+    }
+}
+
+@media (max-width: 486px) {
+
+    body {
+        padding-top: 16rem;
+    }
+
+    .menuBtn {
+        width: 120%;
+    }
+}
+
+
+@media (max-width: 420px) {
+
+    body {
+        padding-top: 19rem;
+    }
+
+}

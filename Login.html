@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Candyshop</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+
+    <meta name="description" content="Webpage for xxxx">
+
+
+    <body>
+
+
+        <!--  NAVBAR JA LOGIN -->
+        <nav class="navbar">
+            <h1 id="Title">Candyshop</h1>
+            <form id="navForm">
+                <input id="username" type="text" name="username" placeholder="Username">
+                <input id="password" type="password" name="password" placeholder="Password">
+                <input class="myButton" id="loginBtn" type="button" name="loginBtn" value="Login">
+            </form>
+        </nav>
+
+
+        <div id="content" class="content">
+            <div class="column">
+                <h1>I'll take you..</h1>
+                <p>.. to the Candyshop! We are the newest and the sweetest dating service there is! So be adventurous, hop in and see if you can find your own sugar!</p>
+                <br>
+                <p>This webservice is made by two ICT-engineering students from Metropolia University of Applied Sciences. </p>
+
+            </div>
+
+
+
+            <div class="column">
+                <h1>New user? Dive in!</h1>
+
+                <form id="newUserForm">
+                    <input class="newU" id="newUser" type="text" name="" placeholder="Username" />
+                    <br/>
+                    <input class="newU" id="newPassword" type="text" name="" placeholder="Password" />
+                    <br/>
+
+                    <div id="sex">
+                        <h2>Gender</h2>
+                        <input type="radio" name="genderS" value="Male" checked> Male<br>
+                        <input type="radio" name="genderS" value="Female"> Female<br>
+                        <input type="radio" name="genderS" value="Other"> Other
+                        <br/>
+
+
+                        <h2>I like..</h2>
+                        <input type="checkbox" name="prefs" value="1" checked> ..girls<br>
+                        <input type="checkbox" name="prefs" value="2" checked> ..boys<br>
+                        <input id="newCreate" type="submit" value="Create" />
+                </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <footer class="bottom">
+            <p id="signature">© Jesse & Verneri</p>
+        </footer>
+    </body>
+
+    <script src="js/login.js"></script>
+    <script src="js/createUser.js"></script>
+
+
+</html>

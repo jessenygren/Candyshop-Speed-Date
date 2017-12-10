@@ -1,0 +1,184 @@
+
+body {
+    padding-top: 17vh;
+    padding-bottom: 13rem;
+    background-color: #FFCCAC;
+
+}
+
+
+p{
+    font-size: 2vh;
+}
+
+form{
+    font-size: 2vh;
+}
+
+
+.navbar {
+    overflow: hidden;
+    background-color: #C1E1DC;
+    position: fixed;
+    /* Set the navbar to fixed position */
+    top: 0;
+    /* Position the navbar at the top of the page */
+    width: 100%;
+    /* Full width */
+    border-bottom: solid #FEFEFA;
+}
+
+
+.navbar h1 {
+    float: left;
+    margin-left: 17%;
+    display: block;
+    color: #FEFEFA;
+    text-shadow: 2px 2px #333;
+    font-family: 'Brush Script MT', cursive;
+    font-size:6.9vh;
+    
+}
+
+.navbar form {
+    text-align: center;
+    margin-right: 17%;
+    margin-left: 17%;
+    display: inline-block;
+    float: right;
+
+}
+
+.content {
+    overflow: hidden;
+    background-color: #FFCCAC;
+    margin-left: 17%;
+    margin-right: 17%;
+    padding: 0;
+    
+    
+}
+
+.content h1 {
+    color: #333;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 5.0vh;
+}
+
+.content h2 {
+    color: #333;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 4.5vh;
+}
+
+.content p {
+    
+    color: #333;
+}
+
+.content .newU{
+    width: 23rem;
+}
+
+.content form {
+    
+    color: #333;
+}
+
+#newCreate {
+    text-align: center;
+    color: white;
+    background-color: #a9d6cf;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px #333;
+    font-size: 2vh;
+    font-weight: bold;
+}
+
+
+.bottom {
+    position: fixed;
+    background-color: #C1E1DC;
+
+    bottom: 0;
+    width: 100%;
+    padding-top: 20px;
+    margin: auto;
+    border-top: solid #FEFEFA;
+}
+
+#sex{
+    column-count: 2;
+}
+
+#signature {
+
+    color: #FEFEFA;
+    text-shadow: 2px 2px #333;
+    font-family: 'Brush Script MT', cursive;
+    margin-left: 45%;
+    font-size: 2.7vh;
+
+}
+
+.myButton {
+    color: white;
+    background-color: #a9d6cf;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px #333;
+    font-size: 2.0vh;
+    font-weight: bold;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+
+/* Clear floats after the columns */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+@media (max-width: 826px) {
+    
+    #loginBtn{
+        width: 100%;
+    }
+    
+    #username{
+        width: 100%;
+    }
+    
+    #password{
+         width: 100%;
+    }
+    
+    #navForm{
+        width: 100%;
+        float: left;
+        display: block;
+    }
+    
+    body{
+        padding-top: 24vh;
+    }
+    
+}
+
+@media (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1582px) {
+    .content{
+        margin-left: 23%;
+    }
+}
