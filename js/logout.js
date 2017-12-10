@@ -3,7 +3,7 @@ var logoutBtn = document.getElementById("logout");
 // Keksien nimet
 var cUserSessionID_Name = "UserSessionID";
 var cSessionID_Name = "SessionID";
-var actionName = "logout";
+
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -51,7 +51,7 @@ function logout(object) {
             }
             
             else {
-                window.location.replace("Login.html");
+               // window.location.replace("Login.html");
                 deleteCookie(cUserSessionID_Name);
                 deleteCookie(cSessionID_Name);
                 
@@ -78,12 +78,12 @@ function jsObjectConstructor(cNameID, cID) {
         
         SessionID : cID,
         UserSessionID: cNameID,
-        Action: this.actionName
+        Action: "logout"
         
     }
 
     return session;
-}
+};
 
 
 // Tässä toiminnallisuutta. 

@@ -11,7 +11,7 @@ var chat = document.getElementById("chat");
 // AJAX HOMMAT
 var cUserSessionID_Name = "UserSessionID";
 var cSessionID_Name = "SessionID";
-var actionName = "readconvo";
+
 
 var lobbyInterval = setInterval(function(){ lobbyAuthenticate(lobbyObjectConstructor(getCookie(cUserSessionID_Name), getCookie(cSessionID_Name))) }, 700);
 
@@ -44,7 +44,7 @@ sendBtn.onclick = function() {
     msgArea.appendChild(spacer);
     msgArea.appendChild(newMsg);
     msgInput.value = "";
-}
+};
 
 
 // AJAX JUTUT
@@ -85,16 +85,16 @@ function lobbyAuthenticate(object) {
 //Keksit tänne
 function lobbyObjectConstructor(cNameID, cID) {
 
-    var session = {
+    var lobbySession = {
 
         SessionID: cID,
         UserSessionID: cNameID,
-        Action: this.actionName
+        Action: "readconvo"
 
     }
 
-    return session;
-}
+    return lobbySession;
+};
 
 
 function getCookie(cname) {
@@ -111,7 +111,7 @@ function getCookie(cname) {
         }
     }
     return "";
-}
+};
 
 function populateLobby(infopack){
     
@@ -147,4 +147,4 @@ function populateLobby(infopack){
         orderedList.appendChild(users[i]);
      }
     
-}
+};

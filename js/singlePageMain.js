@@ -15,12 +15,19 @@ var cUserSessionID_Name = "UserSessionID";
 var cSessionID_Name = "SessionID";
 var action = "readlobbies";
 
+var roomsInterval = setInterval(function() {
+
+authenticate(jsObjectConstructorAuthentication(getCookie(cUserSessionID_Name), getCookie(cSessionID_Name), action));
+
+}, 2000);
+
+window.onload = function() { roomsInterval };
 
 // ANKKURI ROOMS SIVULLA
 if (window.location.hash == title) {
     main.style.display = 'block';
 
-    authenticate(jsObjectConstructorAuthentication(getCookie(cUserSessionID_Name), getCookie(cSessionID_Name), action));
+
 
 
 }
@@ -57,7 +64,7 @@ aboutBtn.onclick = function() {
     profile.style.display = 'none';
     about.style.display = 'block'; // ABOOUT
     main.style.display = 'none';
-    authenticate(jsObjectConstructorAuthentication(getCookie(cUserSessionID_Name), getCookie(cSessionID_Name), action));
+  //  authenticate(jsObjectConstructorAuthentication(getCookie(cUserSessionID_Name), getCookie(cSessionID_Name), action));
 
 };
 
@@ -66,7 +73,7 @@ title.onclick = function() {
     profile.style.display = 'none';
     about.style.display = 'none';
     main.style.display = 'block'; // MAIN
-    authenticate(jsObjectConstructorAuthentication(getCookie(cUserSessionID_Name), getCookie(cSessionID_Name), action));
+   // authenticate(jsObjectConstructorAuthentication(getCookie(cUserSessionID_Name), getCookie(cSessionID_Name), action));
 };
 
 function authenticate(object) {
@@ -191,5 +198,5 @@ function populateProfile(obj){
     gender.innerHTML = obj.Sex;
     img.src = obj.URL;
     
-}
+};
 
