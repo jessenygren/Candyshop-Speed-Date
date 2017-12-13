@@ -11,9 +11,9 @@ $json   = json_decode($post);
 //$json->Action = "logout";
 $json = new stdClass();
 
-$json->Action="readconvo";
-$json->UserSessionID="qVJT00pbo3nRCUuYUqqrqLQQRSSTx1";
-$json->SessionID="D7YPAnz1r6KTiza4wzj2oZtGQVx3dS";
+$json->Action="readmessage";
+$json->UserSessionID="WGpG6eeaNjQ1nUclD2HPDmvWY5m73V";
+$json->SessionID="IsmENca4W6U2qQSxC5WFQsqqAf1bTb";
 
 
 

@@ -34,8 +34,7 @@ function logout(object) {
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            console.log("JS: XML HTTP REQU Tehty");
-
+           
             var myObj = JSON.parse(xmlhttp.responseText);
 
             if (myObj.isitVALID == false || myObj.isitVALID == true) {
@@ -43,10 +42,7 @@ function logout(object) {
                 
                 deleteCookie(cUserSessionID_Name);
                 deleteCookie(cSessionID_Name);
-                
-                console.log(getCookie(cUserSessionID_Name));
-                console.log(getCookie(cSessionID_Name));
-                
+           
 
             }
             
@@ -54,11 +50,7 @@ function logout(object) {
                // window.location.replace("Login.html");
                 deleteCookie(cUserSessionID_Name);
                 deleteCookie(cSessionID_Name);
-                
-                console.log("Jotain todella hämärää tapahtui.");
-                console.log(getCookie(cUserSessionID_Name));
-                console.log(getCookie(cSessionID_Name));
-                
+          
                 
             }
 
@@ -89,9 +81,7 @@ function jsObjectConstructor(cNameID, cID) {
 // Tässä toiminnallisuutta. 
 
 logoutBtn.addEventListener('click', e => {
-    console.log(getCookie(cUserSessionID_Name));
-    console.log(getCookie(cSessionID_Name));
-    
+
     var jsObj = jsObjectConstructor(getCookie(cUserSessionID_Name),getCookie(cSessionID_Name));
     
     logout(jsObj);

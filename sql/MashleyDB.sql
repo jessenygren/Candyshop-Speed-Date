@@ -10,6 +10,7 @@ CREATE TABLE LOBBY (
     Info VARCHAR (300),
     UserAmount INT ,
     Prefer INT NOT NULL,
+    Timer INT,
     PRIMARY KEY (LobbyID)
 );
 
@@ -24,6 +25,7 @@ CREATE TABLE USER (
     UserSessionID VARCHAR (40),
     LobbyID INT,
     URL VARCHAR (300),
+    Message VARCHAR (500),
     PRIMARY KEY (UserID)
     
 );
@@ -39,13 +41,12 @@ INSERT INTO USER(Username, Password, Sex, Prefer, URL) VALUES ("Jesse", "Nygren"
 INSERT INTO USER(Username, Password, Sex, Prefer, URL) VALUES ("Verneri", "Narhi", "Slave", 2, "https://thumbs.gfycat.com/FrightenedCoarseHorsemouse-max-1mb.gif");
 INSERT INTO USER(Username, Password, Sex, Prefer, URL) Values ("Mikael", "Kotkavuori", "Female", 1, "img/user.png");
 
-INSERT INTO LOBBY Values (1, "SEKSILUOLA!", 0,"FOR SEX HUNGRY PPL",0 , 3);
-INSERT INTO LOBBY Values (2, "Luolaseksi", 0, "TEEN PERSEESTA VENEEN!",0 , 3);
-INSERT INTO LOBBY Values (3, "SEKSI!!!!!", 0,"SEXSEXSEXSEX",0 , 3);
-INSERT INTO LOBBY Values (4, "Perspanoja", 0, "PERKELEEE",0 , 3);
-INSERT INTO LOBBY Values (5, "SUOMI100", 0,"KURWA BLYAT",0 , 3);
-INSERT INTO LOBBY Values (6, "Luolaseksi", 0, "TEEN PERSEESTA VENEEN!",0 , 3);
-INSERT INTO LOBBY Values (7, "B-Rapun pojat", 0,"nerds",0 , 3);
-INSERT INTO LOBBY Values (8, "Kuumat sinkkuaidit", 0, "TEEN PERSEESTA VENEEN!",0 , 3);
-INSERT INTO LOBBY Values (9, "Kaikki saa", 0,"FOR SEX HUNGRY PPL",0 , 3);
-INSERT INTO LOBBY Values (10, "Peniksesi kasvaa 15cm yossa", 0, "TEEN PERSEESTA VENEEN!",0 , 3);
+INSERT INTO LOBBY Values (1, "Pappa Nygrens Dining Room", 0,"Place reserved for old farts",0 , 3, NULL);
+INSERT INTO LOBBY Values (2, "Young and wild ;)", 0, "For people under age of 24",0 , 3, NULL);
+INSERT INTO LOBBY Values (3, "ICT- ENGINEERS", 0,"NO WOMEN ALLOWED!",0 , 3, NULL);
+INSERT INTO LOBBY Values (4, "Nurseroom", 0, "These nurses will patch up your bleeding heart!",0 , 3, NULL);
+INSERT INTO LOBBY Values (5, "Boothill", 0,"Great atmosphere!",0 , 3, NULL);
+INSERT INTO LOBBY Values (6, "Ruttis", 0, "Relaxed minds can gather up here!",0 , 3, NULL);
+INSERT INTO LOBBY Values (7, "B-Rappu's boys", 0,"......nerds",0 , 3, NULL);
+INSERT INTO LOBBY Values (8, "The Kaljaasi Simulator", 0, "All ABOARD!!! ",0 , 3, NULL);
+INSERT INTO LOBBY Values (9, "Verkku's compensation", 0, "...you know ;)",0 , 3, NULL);

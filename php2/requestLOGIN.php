@@ -30,7 +30,7 @@ if ($statement = $db->prepare("SELECT * FROM USER WHERE Username= ? AND binary P
     $statement->execute();
     
     //Binding result variables
-    $statement->bind_result($UserID, $Username, $Password,$Sex,$prefer, $SessionID, $UsersessionID, $lobbyID, $picurl);
+    $statement->bind_result($UserID, $Username, $Password,$Sex,$prefer, $SessionID, $UsersessionID, $lobbyID, $picurl, $Message);
     
     if ($statement->fetch()) {
         

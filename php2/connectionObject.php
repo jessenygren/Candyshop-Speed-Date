@@ -6,7 +6,7 @@ class connectionObject
     private $servername, $username, $password, $database, $port;
     
     private $user_UserID, $user_Username, $user_Password, $user_Sex, $user_Prefer, $user_SessionID, $user_UserSessionID, $user_LobbyID, $user_Url;
-    
+    private $lastmsg = 0;
     function __construct()
     {
         
@@ -42,7 +42,7 @@ class connectionObject
             
             //Bindataan tulokset muuttujiin:
             
-            $statement->bind_result($useridreturn, $Username, $Password, $Sex, $Prefer, $SessionID, $UserSessionID, $LobbyID, $picurl);
+            $statement->bind_result($useridreturn, $Username, $Password, $Sex, $Prefer, $SessionID, $UserSessionID, $LobbyID, $picurl, $message);
             
             if ($statement->fetch()) {
                 $this->user_UserID   = $useridreturn;
@@ -105,7 +105,7 @@ class connectionObject
             
             //Binding result variables
             
-            $statement->bind_result($LobbyID, $LobbyName, $Capacity, $Info, $UserAmount, $prefer);
+            $statement->bind_result($LobbyID, $LobbyName, $Capacity, $Info, $UserAmount, $prefer, $Timer);
             
             
             //Fetching results using while loop.
@@ -150,7 +150,7 @@ class connectionObject
             
             //Binding result variables
             
-            $statement->bind_result($UserID, $Username, $Password, $Sex, $Prefer, $SessionID, $UserSessionID, $LobbyID, $picurl);
+            $statement->bind_result($UserID, $Username, $Password, $Sex, $Prefer, $SessionID, $UserSessionID, $LobbyID, $picurl, $message);
             
             
             
@@ -184,14 +184,14 @@ class connectionObject
     //keskustellessaan.
     private function readConvo($jsonObject)
     {
-        if ($this->user_LobbyID == 0 or $this->user_LobbyID == null) {
+        if ($this->user_LobbyID == 0) {
             return $this->failure("You are not in a chatroom!", true);
         }
         
         if ($statement = $this->db->prepare("SELECT Username,Sex, URL FROM USER WHERE LobbyID = ?")) {
             $statement->bind_param("i", $this->user_LobbyID);
             
-            if ($statement2 = $this->db->prepare("SELECT Name,Capacity, Info, UserAmount, Prefer FROM LOBBY WHERE LobbyID = ?")) {
+            if ($statement2 = $this->db->prepare("SELECT Name,Capacity, Info, UserAmount, Prefer, Timer FROM LOBBY WHERE LobbyID = ?")) {
                 $statement2->bind_param("i", $this->user_LobbyID);
                 //Executing query
                 $statement->execute();
@@ -217,7 +217,7 @@ class connectionObject
                     
                 }
                 $statement2->execute();
-                $statement2->bind_result($Name, $Capacity, $Info, $UserAmount, $Prefer);
+                $statement2->bind_result($Name, $Capacity, $Info, $UserAmount, $Prefer, $Timer);
                 
                 if ($statement2->fetch()) {
                     //Object    
@@ -229,6 +229,7 @@ class connectionObject
                     $userObject->Info       = $Info;
                     $userObject->UserAmount = $UserAmount;
                     $userObject->Prefer     = $Prefer;
+                    $userObject->Timer      = $Timer;
                     
                 }
                 
@@ -293,6 +294,214 @@ class connectionObject
         }
         return $this->failure("Session expired", true);
     }
+    
+    private function setMessage($jsonObject)
+    {
+        //Asettaa käyttäjän viestin
+        if ($statement = $this->db->prepare("UPDATE USER SET Message = ? WHERE UserID = ?")) {
+            $statement->bind_param("si", $jsonObject->Message, $this->user_UserID);
+            
+            $statement->execute();
+            
+            $userObject = new stdClass();
+            
+            $userObject->isitVALID = true;
+            $userObject->expl      = "Message delivered!";
+            $userJSON              = json_encode($userObject);
+            $statement->close();
+            $this->db->close();
+            return ($userJSON);
+            
+            
+        }
+        return $this->failure("Failed to set message!", true);
+        
+    }
+    
+    private function readmessage()
+    {
+        
+        if ($statement = $this->db->prepare("SELECT Username, URL, Message FROM USER WHERE LobbyID = ?")) {
+            $statement->bind_param("i", $this->user_LobbyID);
+            
+            //Executing query
+            $statement->execute();
+            
+            //Binding result variables
+            
+            $statement->bind_result($Username, $URL, $Message);
+            
+            
+            $list = array();
+            while ($statement->fetch()) {
+                
+                //Object    
+                $userObject = new stdClass();
+                
+                $userObject->Username = $Username;
+                $userObject->URL      = $URL;
+                $userObject->Message  = $Message;
+                
+                
+                
+                array_push($list, $userObject);
+            }
+            
+            if ($statement2 = $this->db->prepare("SELECT Capacity FROM LOBBY WHERE LobbyID = ?")) {
+                $statement2->bind_param("i", $this->user_LobbyID);
+                
+                //Executing query
+                $statement2->execute();
+                
+                //Binding result variables
+                
+                $statement2->bind_result($lobby_capacity);
+                
+                
+                
+                if ($statement2->fetch()) {
+                    $userownindex = null;
+                    
+                    
+                    for ($x = 0; $x < count($list); $x++) {
+                        
+                        
+                        if ($list[$x]->Username == $this->user_Username) {
+                            $userownindex = $x;
+                        }
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    switch ($lobby_capacity) {
+                        
+                        
+                        case 2:
+                            switch ($userownindex) {
+                                case 0:
+                                    
+                                    return $this->nullmessage($list[2]);
+                                    
+                                    break;
+                                case 1:
+                                    return $this->nullmessage($list[3]);
+                                    
+                                    break;
+                                case 2:
+                                    return $this->nullmessage($list[0]);
+                                    
+                                    break;
+                                case 3:
+                                    return $this->nullmessage($list[1]);
+                                    
+                                    break;
+                            }
+                            
+                            break;
+                        
+                        case 3:
+                            switch ($userownindex) {
+                                case 0:
+                                    
+                                    return $this->nullmessage($list[1]);
+                                    
+                                    break;
+                                case 1:
+                                    return $this->nullmessage($list[0]);
+                                    
+                                    break;
+                                case 2:
+                                    
+                                    return $this->nullmessage($list[3]);
+                                    
+                                    break;
+                                case 3:
+                                    return $this->nullmessage($list[2]);
+                                    
+                                    break;
+                            }
+                            break;
+                        
+                        case 4:
+                            switch ($userownindex) {
+                                case 0:
+                                    
+                                    return $this->nullmessage($list[3]);
+                                    
+                                    break;
+                                case 1:
+                                    
+                                    return $this->nullmessage($list[2]);
+                                    
+                                    break;
+                                case 2:
+                                    
+                                    return $this->nullmessage($list[1]);
+                                    
+                                    break;
+                                case 3:
+                                    
+                                    return $this->nullmessage($list[0]);
+                                    
+                                    break;
+                            }
+                            break;
+                        
+                            
+                            
+                    }
+                    
+                    
+                    $statement->close();
+                    $this->db->close();
+                    
+                    
+                    
+                    
+                    
+                    
+                }
+            }
+        }
+    }
+    
+    private function nullmessage($objectt)
+    {
+       
+    return json_encode($objectt);
+       }
+        
+        
+        
+    private function addURL ($jsonObject) {
+        //Asettaa käyttäjän kuvan
+        if ($statement = $this->db->prepare("UPDATE USER SET URL = ? WHERE UserID = ?")) {
+            $statement->bind_param("si", $jsonObject->URL, $this->user_UserID);
+            
+            $statement->execute();
+            
+            $userObject = new stdClass();
+            
+            $userObject->isitVALID = true;
+            $userObject->expl      = "PIC UPDATED!";
+            $userJSON              = json_encode($userObject);
+            $statement->close();
+            $this->db->close();
+            return ($userJSON);
+            
+            
+        }
+        return $this->failure("PIC UPLOAD FAILED", true);
+        
+    }
+    
+    
+       
+        
+    
     //Tunnistautuminen
     public function action($jsonObject)
     {
@@ -337,6 +546,15 @@ class connectionObject
             
             case "readconvo":
                 return $this->readConvo($jsonObject);
+                break;
+            case "sendmessage":
+                return $this->setMessage($jsonObject);
+                break;
+            case "readmessage":
+                return $this->readmessage($jsonObject);
+                break;
+            case "addurl":
+                return $this->addURL($jsonObject);
                 break;
         }
         

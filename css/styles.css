@@ -30,20 +30,58 @@ form {
     width: 100%;
 }
 
-#timer {
+#chat #timer {
+    position: static;
+    top: 0;
+
+
     text-align: center;
+
+}
+
+#chat #chatter {
+    position: static;
+    top: 0;
+
+
+    text-align: center;
+
+}
+
+.newMsg {
+
+    vertical-align: bottom;
+    overflow: auto;
+}
+
+.userlist {
+    color: #333;
+    text-align: left;
+    font-size: 2.5vh;
+    font-weight: bold;
+}
+
+.info {
+    color: #333;
+    font-style: italic;
 }
 
 #chatText {
-    padding-top: 53vh;
-    overflow: hidden;
+    position: relative;
+    padding-top: 45vh;
+    text-align: left;
+    margin: 0 auto;
+    margin-top: 0;
+    max-height: 200px;
     background-color: #cbe6e2;
     border: solid white;
-    white-space: pre-line;
-    word-wrap: break-word;
+    overflow-y: auto;
+
 }
 
-#msgArea {
+
+
+#msgInput {
     margin-top: 5px;
     width: 100%;
 }
@@ -61,6 +99,16 @@ form {
     width: 100%;
 }
 
+.lobbyimg {
+    height: 100px;
+    width: 100px;
+
+}
+
+#profileImg{
+       width: 315px;
+       height: 315px;
+}
 
 .navbar {
     overflow: hidden;
@@ -123,12 +171,14 @@ form {
 }
 
 .content h1 {
+    margin-left: 8px;
     color: #333;
     font-family: 'Brush Script MT', cursive;
     font-size: 5vh;
 }
 
 .content h2 {
+    margin-left: 8px;
     color: #333;
     font-family: 'Brush Script MT', cursive;
     font-size: 4.5vh;
@@ -215,11 +265,42 @@ form {
     clear: both;
 }
 
+table {
+    text-align: center;
+    background-color: #C1E1DC;
+    margin-bottom: 1vh;
+    border: solid white;
+}
 
+th {
+    text-align: left;
+    font-size: 3vh;
+    padding-right: 4vh;
+}
 
-
+tr {
+    font-size: 2vh;
+    padding-right: 4vh;
+    font-weight: bold;
+}
 
 /* Huonenapit */
+
+#changeImg {
+    color: #FEFEFA;
+    background-color: #a9d6cf;
+    text-shadow: 0 1px 1px #333;
+    font-size: 2vh;
+    font-weight: bold;
+    width: 85px;
+
+}
+
+#chatImg{
+    width: 100px;
+    height: 100px;
+    
+}
 
 .accordion {
 

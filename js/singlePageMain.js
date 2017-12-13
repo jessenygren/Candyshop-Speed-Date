@@ -65,7 +65,6 @@ aboutBtn.onclick = function() {
     about.style.display = 'block'; // ABOOUT
     main.style.display = 'none';
   //  authenticate(jsObjectConstructorAuthentication(getCookie(cUserSessionID_Name), getCookie(cSessionID_Name), action));
-
 };
 
 title.onclick = function() {
@@ -83,11 +82,10 @@ function authenticate(object) {
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            console.log("JS: Yhteys luotu");
+         
 
             var myObj = JSON.parse(xmlhttp.responseText);
 
-            console.log(myObj);
 
             if (myObj.isitVALID == false) {
                 window.location.replace("Mainpage.html");
@@ -175,11 +173,10 @@ function populateRooms(roomList) {
             
             buttonlist[i].innerHTML = roomList[i].Name + " - " + roomList[i].Info + " - " + roomList[i].UserAmount + "/4";
             rooms.appendChild(buttonlist[i]);
-            console.log(roomList[i].LobbyID);
+            
             var count = i;
             buttonlist[i].addEventListener('click', e => { authenticate(lobbyJoinConstructor(getCookie(cUserSessionID_Name), getCookie(cSessionID_Name), roomList[count].LobbyID)); });
-
-
+            
         }());
     };
 };

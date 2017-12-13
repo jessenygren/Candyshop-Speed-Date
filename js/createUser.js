@@ -13,21 +13,19 @@ function create(object) {
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            console.log("JS: Yhteys luotu");
+          
 
             var myObj = JSON.parse(xmlhttp.responseText);
 
             if (myObj.isitVALID == false) {
 
-                console.log("Ei toimi");
-                console.log(myObj);
+            
                 alert(myObj.expl);
 
             }
             else {
-                console.log("Toimii");
-                console.log(myObj);
-                alert(myObj.expl);
+             
+                alert("User Created!");
             }
 
 

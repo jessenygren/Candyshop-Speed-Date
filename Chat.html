@@ -19,7 +19,7 @@
 
             <div id="menuBtnContainer">
                 <button class="menuBtn" id="logout" type="button" name="" value="">Logout</button>
-                <button class="menuBtn" id="leaveChat" type="button" name="" value="">Leave Chat</button>
+
             </div>
         </div>
 
@@ -29,15 +29,19 @@
         <main id="content" class="content">
 
             <div id="waiting" href="#waiting">
-               
+
             </div>
 
 
             <div id="chat" href="#chat">
-                <h2 id="timer">Timer here</h2>
+                <h2 id="chatter">-</h2>
+                <h2 id="timer">-</h2>
+                
+                <br/>
                 <div id="chatText"></div>
 
-                <input id="msgInput" type="text" name="" placeholder="Write a message ;)" />
+                <input id="msgInput" type="text" name="" placeholder="Write a message ;)"  onkeyup = "if (event.keyCode == 13)
+                        document.getElementById('sendBtn').click()"/>
                 <input id="sendBtn" type="submit" value="Send" />
 
 

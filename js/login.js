@@ -42,18 +42,18 @@ function login(object) {
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            console.log("JS: Yhteys luotu");
+          
 
             var myObj = JSON.parse(xmlhttp.responseText);
 
-            console.log(myObj);
+           
             
             if (myObj.isitVALID == false) {
                 alert("Wrong username or password!")
             }
             else {
                 window.location.replace("Mainpage.html");
-                console.log(myObj);
+               
                 // Tehdään keksit
                 setCookie(cUserSessionID_Name, myObj.UserSessionID, 1);
                 setCookie(cSessionID_Name, myObj.SessionID, 1);

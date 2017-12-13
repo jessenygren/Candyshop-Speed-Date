@@ -51,19 +51,23 @@
                 <h1>My profile</h1>
                 <table>
                     <thead>
-                        <tr>
+                        <tr id="profiletr">
                             <th>Username</th>
                             <th>Gender</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr id="profileList">
                             <td id="nameTd"></td>
                             <td id="genderTd"></td>
                         </tr>
                     </tbody>
                 </table>
-                <img id="profileImg" width="300" height="300" />
+                <img id="profileImg"/>
+                <form>
+                    <input id="newImg" type="text" name="'" placeholder="Image URL" />
+                    <input id="changeImg" type="submit" value="Change" />
+                </form>
 
             </div>
 
@@ -98,6 +102,6 @@
     <script type="text/javascript" src="js/sidenav.js"></script>
     <!--<script type="text/javascript" src="js/roomBtn.js"></script> -->
     <script type="text/javascript" src="js/singlePageMain.js"></script>
-
+    <script type="text/javascript" src="js/changeImg.js"></script>
 
 </html>
