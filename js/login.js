@@ -1,13 +1,13 @@
-// Esitellään login.html painikkeet
+// Esitellään login.html painikkeet. 
 var loginBtn = document.getElementById("loginBtn");
 var usernameField = document.getElementById("username");
 var passwordField = document.getElementById("password");
 var para = document.getElementById("txtBox");
-
+// Esitellään evästemuuttujat
 var cUserSessionID_Name = "UserSessionID";
 var cSessionID_Name = "SessionID";
 
-
+// Funktio, jolla luodaan evästeet loginin yhteydessä. 
 function setCookie(cname, cvalue, exhour) {
     var d = new Date();
     d.setTime(d.getTime() + (exhour * 60 * 60 * 1000));
@@ -15,7 +15,7 @@ function setCookie(cname, cvalue, exhour) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 };
 
-
+// Getteri, jolla saadaan tiedot evästeistä 
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -34,7 +34,7 @@ function getCookie(cname) {
 
 
 
-// Tällä murikalla lähetetään tietoa
+// AJAX funktio, jolla lähetetään dataa PHP:lle 
 function login(object) {
     var xmlhttp = new XMLHttpRequest();
 
@@ -46,12 +46,12 @@ function login(object) {
 
             var myObj = JSON.parse(xmlhttp.responseText);
 
-           
-            
             if (myObj.isitVALID == false) {
+            
                 alert("Wrong username or password!")
             }
             else {
+                // Jos toimii ohjataan pääsivulle
                 window.location.replace("Mainpage.html");
                
                 // Tehdään keksit
@@ -67,7 +67,7 @@ function login(object) {
     xmlhttp.send(stringify);
 };
 
-// Tällä voidaan luoda javascript objeketeja jotka sisältävät käyttäjänimen ja salasanan
+// Tällä voidaan luoda javascript objeketeja jotka sisältävät käyttäjänimen ja salasanan // Konstruktori
 function jsObjectConstructor(username, password) {
 
     var user = {

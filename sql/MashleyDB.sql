@@ -1,8 +1,18 @@
+/*Databasen luonti ja käyttöönotto */
 DROP DATABASE IF EXISTS MashleyDB;
 CREATE DATABASE MashleyDB;
 USE MashleyDB;
 
-
+/*Tietokantataulu chat-huoneille: 
+LobbyID: ID,
+Name: Huoneen nimi,
+Capacity: Huoneen tilaa kuvaava kenttä ( Vaihtelee 0-6 välillä 
+ohjelmassa),
+Info: Huoneen kuvaustekstin sisältävä kenttä, 
+UserAmount: Käyttäjien määrä huoneessa,
+Prefer: Prefer ei ole suuressa roolilla lopullisessa tuotteessa,
+mahdollistaa huoneiden luokittelun käyttäjien mieltymysten mukaiseksi,
+Timer: huoneen ajastin*/
 CREATE TABLE LOBBY (
     LobbyID INT NOT NULL,
     Name VARCHAR (40) NOT NULL, 
@@ -14,7 +24,17 @@ CREATE TABLE LOBBY (
     PRIMARY KEY (LobbyID)
 );
 
-
+/*Käyttäjätietokanta,
+UserID: ID,
+Username: käyttäjänimi,
+Password: salasana, 
+Sex: käyttäjän sukupuoli,
+Prefer: käyttäjän mieltymys (0 - 2, ei käytössä suuremmin),
+UserSessionID ja SessionID: random generoidut stringit sisältävät
+kentät, joita käytetään käyttäjäautentikaatiossa,
+LobbyID: jos käyttäjä lobbyssa = lobbyn id,
+URL: profiilikuvan url,
+Message: chat-viestin kenttä. */
 CREATE TABLE USER (
     UserID INT NOT NULL AUTO_INCREMENT,
     Username VARCHAR (30) NOT NULL,
@@ -32,7 +52,7 @@ CREATE TABLE USER (
 
 
 
-/* Prefer 0 = Both 1 = Boys 2 = Grills */
+
 
 INSERT INTO USER(Username, Password, Sex, Prefer, SessionID, UserSessionID, URL) VALUES ("Kikki", "Hiiri", "Hiiri", 0, "Kikki", "Hiiri", "https://babylon.naurunappula.com/200x200/83/06/8306aa014fd6a123/0/727557.jpg");
 INSERT INTO USER(Username, Password, Sex, Prefer, SessionID, UserSessionID, URL) VALUES ("Matte", "asdsa", "KISSA", 0, "abc", "kissa", "img/user.png");

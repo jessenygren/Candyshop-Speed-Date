@@ -1,3 +1,5 @@
+
+// Tätä ei käytetä lopullisessa versiossa.
 var acc = document.getElementsByClassName("accordion");
 var i;
 

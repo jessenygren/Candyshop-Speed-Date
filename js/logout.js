@@ -1,3 +1,4 @@
+// Esitellään logout nappi
 var logoutBtn = document.getElementById("logout");
 
 // Keksien nimet
@@ -5,6 +6,22 @@ var cUserSessionID_Name = "UserSessionID";
 var cSessionID_Name = "SessionID";
 
 
+//Konstruktori, jolla luodaan objekti joka sisältää logout actionin ja cookiet
+function jsObjectConstructor(cNameID, cID) {
+
+    var session = {
+        
+        SessionID : cID,
+        UserSessionID: cNameID,
+        Action: "logout"
+        
+    }
+
+    return session;
+};
+
+
+// Getteri jolla saadaan evästeistä dataa
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -21,12 +38,14 @@ function getCookie(cname) {
     return "";
 }
 
+// Funktio, jolla voidaan mitätöidä evästeet
 function deleteCookie(name) {
     document.cookie = name + '=;expires=Thu, 20 Apr 1999 00:00:01 GMT;';
 };
 
 
-// TÄTÄ PITÄÄ MUOKATA
+// AJAX funktio uloskirjautumiseen. Lähettää dataa PHP:lle. Poistaa cookiet painalluksen yhteydessä. 
+// Eli mitätöi istunnon.
 function logout(object) {
     var xmlhttp = new XMLHttpRequest();
 
@@ -42,16 +61,11 @@ function logout(object) {
                 
                 deleteCookie(cUserSessionID_Name);
                 deleteCookie(cSessionID_Name);
-           
-
             }
-            
             else {
                // window.location.replace("Login.html");
                 deleteCookie(cUserSessionID_Name);
                 deleteCookie(cSessionID_Name);
-          
-                
             }
 
         }
@@ -63,22 +77,9 @@ function logout(object) {
 };
 
 
-//Keksit tänne
-function jsObjectConstructor(cNameID, cID) {
-
-    var session = {
-        
-        SessionID : cID,
-        UserSessionID: cNameID,
-        Action: "logout"
-        
-    }
-
-    return session;
-};
 
 
-// Tässä toiminnallisuutta. 
+// Callback logout napille, joka toteuttaa yllä olevia funktioita. 
 
 logoutBtn.addEventListener('click', e => {
 

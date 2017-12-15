@@ -180,8 +180,7 @@ class connectionObject
         }
     }
     
-    //KESKEN, tulee palauttamaan kaiken tiedon jota käyttäjä tarvitsee 
-    //keskustellessaan.
+    //Lukee keskustelun yleisen tilanteen.
     private function readConvo($jsonObject)
     {
         if ($this->user_LobbyID == 0) {
@@ -374,6 +373,15 @@ class connectionObject
                     }
                     
                     
+                    
+                    //KAMALA kovakoodattu kikkikökkäre joka yhdistää käyttäjät keskenään keskustelun edetessä.
+                    //algoritmi on jo olemassa, mutta sen toteutukseen ei kannata käyttää aikaa.
+                    //Nyt toteutettu switch case-puuna selkeyden takia.
+                    //Lobby_capacity tarkoittaa huoneen tilaa. 0 on avoin, 1 kiinni, odottaa 10s ennen alkua.
+                    //2-4 keskusteluja.
+                    //5 keskustelun loppu
+                    //6 potkii käyttäjät ulos ja nollaa huoneen 30s cooldownin jälkeen.
+                    //Tilojen vaihto ja hallinnointi tapahtuu server_chatbot.php scriptin avulla.
                     
                     
                     switch ($lobby_capacity) {
