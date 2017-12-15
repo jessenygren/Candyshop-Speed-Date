@@ -1,4 +1,8 @@
 <?php
+
+//Käy läpi huoneita ja tarkistaa ovatko ne täynnä.
+
+//Tietokannan tiedot
 $servername = getenv('IP');
 $username   = getenv('C9_USER');
 $password   = "";
@@ -13,7 +17,7 @@ if ($db->error) {
 
 
 
-
+//Statementtien valmisteleminen
 
 if ($statement1 = $db->prepare("UPDATE USER SET LobbyID = NULL WHERE UserSessionID = NULL AND SessionID = NULL")) {
     $statement2 = $db->prepare("SELECT * FROM LOBBY WHERE CAPACITY = 0");
@@ -37,7 +41,7 @@ if ($statement1 = $db->prepare("UPDATE USER SET LobbyID = NULL WHERE UserSession
         
         $list = array();
         $statement2->execute();
-        
+        //Hakee lobbyjen tiedot listaan
         while ($statement2->fetch()) {
             $userObject             = new stdClass();
             $userObject->LobbyID    = $LobbyID;
@@ -53,7 +57,7 @@ if ($statement1 = $db->prepare("UPDATE USER SET LobbyID = NULL WHERE UserSession
         }
         
         $roomcount = count($list);
-        
+        //Käy huoneet läpi ja päivittää käyttäjien määrän huoneessa.
         for ($i = 0; $i < $roomcount; $i++) {
             
             $lobby_LobbyID = $list[$i]->LobbyID;
@@ -87,6 +91,7 @@ if ($statement1 = $db->prepare("UPDATE USER SET LobbyID = NULL WHERE UserSession
         
     }
 } else {
+    //Failure-viesti
     $userObject = new stdClass();
     
     $userObject->isitVALID = false;

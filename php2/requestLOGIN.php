@@ -22,7 +22,7 @@ if ($db->connect_error) {
     die("NO CONNECTION . $db->connect_error");
 }
 
-
+//Kokeilee hakea käyttäjän ID annetulla käyttäjänimellä ja salasanalla. Jos löytyy, generoi kaksi stringiä UserSessionID ja SessionID jotka palauttaa. Tallentuvat kekseihin.l
 if ($statement = $db->prepare("SELECT * FROM USER WHERE Username= ? AND binary Password = ? ")) {
     $statement->bind_param("ss", $json->Username, $json->Password);
     

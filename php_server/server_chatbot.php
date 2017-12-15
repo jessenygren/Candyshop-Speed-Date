@@ -1,4 +1,7 @@
 <?php
+
+
+//Hieman sekavasti toteutettu botti joka pitää huolta huoneen tilan vaihtumisesta kun huone on täyttynyt
 $servername = getenv('IP');
 $username   = getenv('C9_USER');
 $password   = "";
@@ -22,6 +25,7 @@ while (true) {
         $list = array();
         $statement2->execute();
         
+        //Hakee käynnissä olevien lobbyjen tiedot ja lisää ne listaan
         while ($statement2->fetch()) {
             $userObject             = new stdClass();
             $userObject->LobbyID    = $LobbyID;
@@ -40,22 +44,23 @@ while (true) {
         
          if ($list[0] != null) {
        
-       
+       //Käy läpi listan
         for ($i = 0; $i < count($list); $i++) {
             
-            
+            //Jos listan kyseisen huoneen ajastin == 0, siirtyy seuraavaan tilaan/lopettaa huoneen toiminnan
             if ($list[$i]->Timer <= 0) {
                 
                 
                 echo $list[$i]->Timer;
                 echo $list[$i]->Capacity;
+                //Huoneen tila ja ajastin
                 $LobbyCapacity = $list[$i]->Capacity + 1;
                 $LobbyTimer = 60;
                 $LobbyIDD = $list[$i]->LobbyID;
                 if($LobbyCapacity == 5){
                     $LobbyTimer = 10;
                 }
-                
+                //Jos huone on tilassa 6 eli loppu, nollaa huoneen ja poistaa käyttäjät lobbysta
                 $statement3->execute();
                 if ($LobbyCapacity > 6){
                     if ($statement4 = $db->prepare("UPDATE USER SET LobbyID = NULL WHERE LobbyID =?")) {
@@ -70,7 +75,7 @@ while (true) {
                 }
                 
             } else {
-                
+                //Vähentää aikaa huoneesta, tila ei muutu.
                 $LobbyTimer = $list[$i]->Timer - 1;
                 $LobbyCapacity = $list[$i]->Capacity;
                 $LobbyIDD = $list[$i]->LobbyID;
@@ -91,7 +96,7 @@ while (true) {
         
        
     }
-    
+    //Hetken tauko.
        sleep(1);  
     }
     

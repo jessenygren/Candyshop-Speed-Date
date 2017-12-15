@@ -1,10 +1,14 @@
 <?php
 
+//luokka josta luodaan olio kyselyjä tehdessä. Käyttäjä kirjautuu requestlogin.php tiedoston kautta. T
+//Olio tarkistaa onko käyttäjällä oikeus tehdä muutoksia ja saada tietoa/muokata sitö.
+//Lukeminen kannattaa aloittaa action-metodista
 class connectionObject
 {
-    
+    //Tietokantaan yhdistämiseen käytetyt muuttujat jotka määritellään konstruktorissa
     private $servername, $username, $password, $database, $port;
     
+    //Tunnistautumisen yhteydessä tallentaa käyttäjän tiedot saataville näihin muuttujiin.
     private $user_UserID, $user_Username, $user_Password, $user_Sex, $user_Prefer, $user_SessionID, $user_UserSessionID, $user_LobbyID, $user_Url;
     private $lastmsg = 0;
     function __construct()
@@ -20,7 +24,7 @@ class connectionObject
     }
     
     
-    
+    //Tarkistaa onko käyttäjä kirjautunut sisään
     private function checkauth($SessionID, $UserSessionID)
     {
         
@@ -44,6 +48,7 @@ class connectionObject
             
             $statement->bind_result($useridreturn, $Username, $Password, $Sex, $Prefer, $SessionID, $UserSessionID, $LobbyID, $picurl, $message);
             
+            //Tallennetaan käyttäjän tiedot luokan yksityisiin muuttujiin.
             if ($statement->fetch()) {
                 $this->user_UserID   = $useridreturn;
                 $this->user_Username = $Username;
@@ -70,16 +75,17 @@ class connectionObject
         
         
     }
-    
+    //Uloskirjautuminen
     private function logOut($jsonObject)
     {
         
-        //Asettaa 
+        //Asettaa käyttäjän sesssionID, UsersessionID ja Lobbyn nulliksi. Keksit ovat voimassa vain tunnin eli uloskirjautumisen laiminlyöminen ei ole ongelma
         if ($statement = $this->db->prepare("UPDATE USER SET SessionID=NULL, UserSessionID=NULL, LobbyID=NULL WHERE UserID = ?")) {
             $statement->bind_param("i", $this->user_UserID);
             
             $statement->execute();
             
+            //Luodaan objekti joka muutetaan jsoniksi ja palautetaan
             $userObject            = new stdClass();
             $userObject->isitVALID = true;
             $userObject->expl      = "LOGGED OUT!";
@@ -93,12 +99,12 @@ class connectionObject
         return $this->failure("Session expired", true);
     }
     
-    
+    //Lukee avoimet lobbyt rooms-välilehden avatessa
     private function readLobbies($jsonObject)
     {
         
         if ($statement = $this->db->prepare("SELECT * FROM LOBBY WHERE Capacity = 0")) {
-            //$statement->bind_param("i", $id);
+            
             
             //Executing query
             $statement->execute();
@@ -114,7 +120,7 @@ class connectionObject
             
             while ($statement->fetch()) {
                 
-                //Object    
+                //Objektin luominen, huoneen tietojen lisääminen ja sen puskeminen listaan   
                 $userObject             = new stdClass();
                 $userObject->isitVALID  = true;
                 $userObject->expl       = "Lobbies fetched";
@@ -126,6 +132,8 @@ class connectionObject
                 
                 array_push($list, $userObject);
             }
+            
+            //Listan palautus ja tietokantayhteyden sulkeminen
             $statement->close();
             $this->db->close();
             return json_encode($list);
@@ -139,7 +147,7 @@ class connectionObject
     
     
     
-    //Lukee käyttäjän tiedot ja palauttaa ne.
+    //Lukee käyttäjän tiedot id:n perusteella.
     private function readUser($jsonObject)
     {
         if ($statement = $this->db->prepare("SELECT * FROM USER WHERE UserID = ?")) {
@@ -156,7 +164,7 @@ class connectionObject
             
             if ($statement->fetch()) {
                 
-                //Object    
+                 //Objektin luominen, huoneen tietojen lisääminen ja sen puskeminen listaan    
                 $userObject            = new stdClass();
                 $userObject->isitVALID = true;
                 $userObject->expl      = "USER details fetched";
@@ -170,6 +178,7 @@ class connectionObject
                 
                 
             }
+            //Tietokantayhteyden sulkeminen ja palautus Jsonina
             $statement->close();
             $this->db->close();
             return json_encode($userObject);
@@ -180,16 +189,16 @@ class connectionObject
         }
     }
     
-    //Lukee keskustelun yleisen tilanteen.
+    //Lukee keskustelun yleisen tilanteen eli osallistujat ja huoneen tiedot
     private function readConvo($jsonObject)
-    {
+    {   //Jos käyttäjä ei ole huoneessa
         if ($this->user_LobbyID == 0) {
             return $this->failure("You are not in a chatroom!", true);
         }
-        
+        //Käyttäjien tiedot lobbysta
         if ($statement = $this->db->prepare("SELECT Username,Sex, URL FROM USER WHERE LobbyID = ?")) {
             $statement->bind_param("i", $this->user_LobbyID);
-            
+            //Lobbyn tiedot
             if ($statement2 = $this->db->prepare("SELECT Name,Capacity, Info, UserAmount, Prefer, Timer FROM LOBBY WHERE LobbyID = ?")) {
                 $statement2->bind_param("i", $this->user_LobbyID);
                 //Executing query
@@ -205,7 +214,7 @@ class connectionObject
                 
                 while ($statement->fetch()) {
                     
-                    //Object    
+                    //Objektin luominen ja käyttäjien tietojen lisääminen listaan
                     $userObject            = new stdClass();
                     $userObject->isitVALID = true;
                     $userObject->expl      = "userinfo";
@@ -217,7 +226,7 @@ class connectionObject
                 }
                 $statement2->execute();
                 $statement2->bind_result($Name, $Capacity, $Info, $UserAmount, $Prefer, $Timer);
-                
+                //Lobbyn tietojen hakeminen
                 if ($statement2->fetch()) {
                     //Object    
                     $userObject             = new stdClass();
@@ -231,7 +240,7 @@ class connectionObject
                     $userObject->Timer      = $Timer;
                     
                 }
-                
+                //Palautusolion luominen ja tiedon lisääminen
                 $returnobject               = new stdClass();
                 $returnobject->isitVALID    = true;
                 $returnobject->expl         = "infopack";
@@ -255,7 +264,7 @@ class connectionObject
         
         
     }
-    
+    //Palauttaa virheilmoitus-olion JSONINA
     private function failure($failure, $dbshutdown)
     {
         if ($dbshutdown) {
@@ -271,7 +280,7 @@ class connectionObject
         return ($userJSON);
     }
     
-    
+    //Asettaa käyttäjän huoneeseen.
     private function setuserLobby($jsonObject)
     {
         //Asettaa käyttäjän huoneeseen.
@@ -294,6 +303,7 @@ class connectionObject
         return $this->failure("Session expired", true);
     }
     
+    //Asettaa viestin käyttäjän tauluun kohtaan message
     private function setMessage($jsonObject)
     {
         //Asettaa käyttäjän viestin
@@ -303,7 +313,7 @@ class connectionObject
             $statement->execute();
             
             $userObject = new stdClass();
-            
+            //Palautus onnistuneesta lisäämisestä!
             $userObject->isitVALID = true;
             $userObject->expl      = "Message delivered!";
             $userJSON              = json_encode($userObject);
@@ -317,9 +327,10 @@ class connectionObject
         
     }
     
+    //Viestien lukeminen ja käyttäjien yhdistäminen. 
     private function readmessage()
     {
-        
+        //Hakee huoneen käyttäjät
         if ($statement = $this->db->prepare("SELECT Username, URL, Message FROM USER WHERE LobbyID = ?")) {
             $statement->bind_param("i", $this->user_LobbyID);
             
@@ -330,7 +341,7 @@ class connectionObject
             
             $statement->bind_result($Username, $URL, $Message);
             
-            
+            //Käyttäjät lisätään listaan
             $list = array();
             while ($statement->fetch()) {
                 
@@ -345,7 +356,7 @@ class connectionObject
                 
                 array_push($list, $userObject);
             }
-            
+            //Hakee huoneen tilan. Tilat 2-4 ovat keskustelua varten
             if ($statement2 = $this->db->prepare("SELECT Capacity FROM LOBBY WHERE LobbyID = ?")) {
                 $statement2->bind_param("i", $this->user_LobbyID);
                 
@@ -357,7 +368,7 @@ class connectionObject
                 $statement2->bind_result($lobby_capacity);
                 
                 
-                
+                //Hakee käyttäjän oman indeksin listassa.
                 if ($statement2->fetch()) {
                     $userownindex = null;
                     
@@ -476,6 +487,7 @@ class connectionObject
         }
     }
     
+    //Palauttaa viestin jsonina
     private function nullmessage($objectt)
     {
        
@@ -483,7 +495,7 @@ class connectionObject
        }
         
         
-        
+        //Lisää kuvan kyseisen käyttäjän tietokantaan
     private function addURL ($jsonObject) {
         //Asettaa käyttäjän kuvan
         if ($statement = $this->db->prepare("UPDATE USER SET URL = ? WHERE UserID = ?")) {

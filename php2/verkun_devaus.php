@@ -1,5 +1,5 @@
 <?php
-
+//Viimeisin testiscripti. Helppo tarkistaa toimintojen toimivuutta ja palautusta
 include 'connectionObject.php';
 
 $post = file_get_contents('php://input');

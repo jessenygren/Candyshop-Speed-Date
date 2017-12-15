@@ -1,10 +1,12 @@
 <?php
-
+//Käyttäjän luonti
 class createUser
 {
+    
     private $UserSessionID;
     private $SessionID;
     private $useridreturn;
+    //Tietokannan tiedot
     private $servername, $username, $password, $database, $port;
     
     
@@ -20,9 +22,9 @@ class createUser
     }
     
     
-    
+    //Käyttäjän lisääminen
     public function addUser($jsonObject)
-    {
+    {//Tietokantaan yhdistäminen
         $this->db = new mysqli($this->servername, $this->username, $this->password, $this->database, $this->port);
         
         //Testing if connection was succesfull. If not -> Exit return error message.
@@ -38,6 +40,7 @@ class createUser
             return ($userJSON);
         }
         
+        //Hakee annetulla käyttäjänimellä löytyykö vastinetta. Jos ei, luo käyttäjän. 
         if ($statement = $this->db->prepare("SELECT * FROM USER WHERE Username = ?")) {
             $statement->bind_param("s", $jsonObject->Username);
             
@@ -50,7 +53,7 @@ class createUser
             $realcount = (int) $count;
             $statement->close();
             
-            
+            //Jos käyttäjä jo olemassa, palauttaa virheen
             if ($realcount > 0) {
                 $userObject = new stdClass();
                 
@@ -77,7 +80,7 @@ class createUser
         }
         
         
-        
+        //Käyttäjän tietojen tallennus tietokantaan.
         if ($statement = $this->db->prepare("INSERT INTO USER (Username, Password, Sex, Prefer, URL) VALUES (?,?,?,?,?)")) {
             $statement->bind_param("sssis", $jsonObject->Username, $jsonObject->Password, $jsonObject->Sex, $jsonObject->Prefer, $jsonObject->URL);
             
